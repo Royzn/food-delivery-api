@@ -2,8 +2,10 @@ package com.example.food_delivery_api.service;
 
 import com.example.food_delivery_api.dto.menu.CreateMenuRequest;
 import com.example.food_delivery_api.dto.menu.CreateMenuResponse;
+import com.example.food_delivery_api.dto.menu.GetMenuResponse;
 import com.example.food_delivery_api.dto.restaurant.CreateRestaurantRequest;
 import com.example.food_delivery_api.dto.restaurant.CreateRestaurantResponse;
+import com.example.food_delivery_api.dto.restaurant.GetRestaurantMenuResponse;
 import com.example.food_delivery_api.dto.restaurant.GetRestaurantResponse;
 import com.example.food_delivery_api.entity.MenuEntity;
 import com.example.food_delivery_api.entity.RestaurantEntity;
@@ -72,6 +74,28 @@ public class RestaurantService {
                         .restaurantName(r.getName())
                         .menuName(m.getName())
                         .menuPrice(m.getPrice())
+                        .build()
+        );
+    }
+
+    public ResponseEntity<GetRestaurantMenuResponse> getRestaurantMenuList(Long id){
+        RestaurantEntity r = restaurantRepository.findById(id).orElse(null);
+
+        if(r == null) return ResponseEntity.notFound().build();
+
+        List<MenuEntity> menuList = r.getMenuList();
+
+        List<GetMenuResponse> menuResponses = menuList.stream().map(
+                menu -> GetMenuResponse.builder()
+                        .menuName(menu.getName())
+                        .menuPrice(menu.getPrice())
+                        .build()
+        ).toList();
+
+        return ResponseEntity.ok(
+                GetRestaurantMenuResponse.builder()
+                        .restaurantName(r.getName())
+                        .menuList(menuResponses)
                         .build()
         );
     }

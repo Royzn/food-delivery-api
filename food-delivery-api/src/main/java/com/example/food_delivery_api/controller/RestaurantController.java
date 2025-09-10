@@ -2,8 +2,10 @@ package com.example.food_delivery_api.controller;
 
 import com.example.food_delivery_api.dto.menu.CreateMenuRequest;
 import com.example.food_delivery_api.dto.menu.CreateMenuResponse;
+import com.example.food_delivery_api.dto.menu.GetMenuResponse;
 import com.example.food_delivery_api.dto.restaurant.CreateRestaurantRequest;
 import com.example.food_delivery_api.dto.restaurant.CreateRestaurantResponse;
+import com.example.food_delivery_api.dto.restaurant.GetRestaurantMenuResponse;
 import com.example.food_delivery_api.dto.restaurant.GetRestaurantResponse;
 import com.example.food_delivery_api.service.RestaurantService;
 import jakarta.validation.Valid;
@@ -35,5 +37,10 @@ public class RestaurantController {
     @PostMapping(value = "/{id}/menus", consumes = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<CreateMenuResponse> createRestaurantMenu(@PathVariable Long id, @Valid @RequestBody CreateMenuRequest req){
         return restaurantService.createRestaurantMenu(id, req);
+    }
+
+    @GetMapping("/{id}/menus")
+    public ResponseEntity<GetRestaurantMenuResponse> getRestaurantMenuList(@PathVariable Long id){
+        return restaurantService.getRestaurantMenuList(id);
     }
 }

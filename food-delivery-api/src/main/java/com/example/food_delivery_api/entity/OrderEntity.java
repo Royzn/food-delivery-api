@@ -32,6 +32,9 @@ public class OrderEntity {
     @JoinColumn(name = "courier_id")
     private CourierEntity courier;
 
+    @Column(nullable = false)
+    private String status;
+
     @OneToMany(mappedBy = "order")
     private List<OrderItemEntity> orderItemList;
 

@@ -28,6 +28,8 @@ public class OrderItemEntity {
     @JoinColumn(name = "menu_id")
     private MenuEntity menu;
 
+    private Long quantity;
+
     private LocalDateTime createdAt;
     private LocalDateTime updatedAt;
     private LocalDateTime deletedAt;

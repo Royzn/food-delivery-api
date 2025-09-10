@@ -30,7 +30,6 @@ public class RestaurantEntity {
     @OneToMany(mappedBy = "restaurant", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<OrderEntity> orderList;
 
-    @Column(nullable = false)
     private String status;
 
     private LocalDateTime createdAt;

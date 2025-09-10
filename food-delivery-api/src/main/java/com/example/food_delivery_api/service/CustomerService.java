@@ -55,7 +55,6 @@ public class CustomerService {
             orderResponse.setOrderItemList(itemResponses);
             return orderResponse;
         }).collect(Collectors.toList());
-
         response.setOrderList(orderResponses);
         return response;
     }

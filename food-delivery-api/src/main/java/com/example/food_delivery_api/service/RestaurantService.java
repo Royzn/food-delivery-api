@@ -9,6 +9,7 @@ import com.example.food_delivery_api.dto.restaurant.GetRestaurantMenuResponse;
 import com.example.food_delivery_api.dto.restaurant.GetRestaurantResponse;
 import com.example.food_delivery_api.entity.MenuEntity;
 import com.example.food_delivery_api.entity.RestaurantEntity;
+import com.example.food_delivery_api.entity.RestaurantStatusEnum;
 import com.example.food_delivery_api.repository.MenuRepository;
 import com.example.food_delivery_api.repository.RestaurantRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,6 +30,7 @@ public class RestaurantService {
     public ResponseEntity<CreateRestaurantResponse> createRestaurant(CreateRestaurantRequest req){
         RestaurantEntity restaurant = RestaurantEntity.builder()
                 .name(req.getRestaurantName())
+                .status(RestaurantStatusEnum.OPEN.toString())
                 .createdAt(LocalDateTime.now())
                 .build();
 

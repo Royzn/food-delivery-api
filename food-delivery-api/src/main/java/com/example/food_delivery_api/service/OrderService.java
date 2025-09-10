@@ -114,4 +114,29 @@ public class OrderService {
                 .orderItemList(itemResponses)
                 .build();
     }
+
+    public UpdateOrderStatusResponse updateOrderStatus(Long id, UpdateOrderStatusRequest request){
+        // Find order
+        OrderEntity order = orderRepository.findById(id)
+                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Order ID not found"));
+        // Enum validation from req
+        OrderStatusEnum newStatus;
+        try {
+            newStatus = OrderStatusEnum.valueOf(request.getStatus().toUpperCase());
+        } catch (IllegalArgumentException e) {
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Invalid status value");
+        }
+        // Save
+        order.setStatus(newStatus.toString());
+        order.setUpdatedAt(LocalDateTime.now());
+        orderRepository.save(order);
+        // save
+        return UpdateOrderStatusResponse.builder()
+                .orderId(order.getOrderId())
+                .customerName(order.getCustomer().getName())
+                .courierName(order.getCourier().getName())
+                .restaurantName(order.getRestaurant().getName())
+                .status(order.getStatus())
+                .build();
+    }
 }

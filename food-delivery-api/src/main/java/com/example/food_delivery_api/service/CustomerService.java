@@ -23,6 +23,7 @@ public class CustomerService {
         CustomerEntity customer = CustomerEntity.builder()
                 .name(request.getName())
                 .createdAt(LocalDateTime.now())
+                .updatedAt(LocalDateTime.now())
                 .build();
         customerRepository.save(customer);
         return CreateCustomerResponse.builder()

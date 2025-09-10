@@ -22,6 +22,7 @@ public class CourierService {
         CourierEntity courier = CourierEntity.builder()
                 .name(request.getName())
                 .createdAt(LocalDateTime.now())
+                .updatedAt(LocalDateTime.now())
                 .build();
         courierRepository.save(courier);
         return CreateCourierResponse.builder()

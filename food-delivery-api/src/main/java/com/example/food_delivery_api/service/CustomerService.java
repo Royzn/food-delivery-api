@@ -27,11 +27,4 @@ public class CustomerService {
                 .createdAt(customer.getCreatedAt())
                 .build();
     }
-
-//    public GetCustomerOrderResponse getCustomerOrder(Long customerId){
-//        CustomerEntity customer = customerRepository.findById(customerId).orElse(null);
-//        // if(customer==null)return ...
-//        return
-//
-//    }
 }

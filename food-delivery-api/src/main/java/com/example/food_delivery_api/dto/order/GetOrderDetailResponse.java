@@ -23,6 +23,9 @@ public class GetOrderDetailResponse {
     @JsonProperty("restaurant_name")
     private String restaurantName;
 
+    @JsonProperty("status")
+    private String status;
+
     @JsonProperty("order_list")
     private List<GetOrderItemResponse> orderItemList;
 }

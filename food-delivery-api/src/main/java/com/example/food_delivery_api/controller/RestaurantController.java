@@ -1,5 +1,7 @@
 package com.example.food_delivery_api.controller;
 
+import com.example.food_delivery_api.dto.menu.CreateMenuRequest;
+import com.example.food_delivery_api.dto.menu.CreateMenuResponse;
 import com.example.food_delivery_api.dto.restaurant.CreateRestaurantRequest;
 import com.example.food_delivery_api.dto.restaurant.CreateRestaurantResponse;
 import com.example.food_delivery_api.dto.restaurant.GetRestaurantResponse;
@@ -28,5 +30,10 @@ public class RestaurantController {
     @GetMapping
     public ResponseEntity<List<GetRestaurantResponse>> getRestaurantList(){
         return restaurantService.getRestaurantList();
+    }
+
+    @PostMapping(value = "/{id}/menus", consumes = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<CreateMenuResponse> createRestaurantMenu(@PathVariable Long id, @Valid @RequestBody CreateMenuRequest req){
+        return restaurantService.createRestaurantMenu(id, req);
     }
 }

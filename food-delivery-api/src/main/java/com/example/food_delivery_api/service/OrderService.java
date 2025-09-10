@@ -111,6 +111,7 @@ public class OrderService {
                 .customerName(order.getCustomer().getName())
                 .courierName(order.getCourier().getName())
                 .restaurantName(order.getRestaurant().getName())
+                .status(order.getStatus())
                 .orderItemList(itemResponses)
                 .build();
     }

@@ -16,11 +16,12 @@ import java.time.LocalDateTime;
 @AllArgsConstructor
 public class CreateCustomerResponse {
 
-    @NotBlank
+    @JsonProperty("id")
+    private Long id;
+
     @JsonProperty("name")
     private String name;
 
-    @NotNull
     @JsonProperty("created_at")
     private LocalDateTime createdAt;
 }

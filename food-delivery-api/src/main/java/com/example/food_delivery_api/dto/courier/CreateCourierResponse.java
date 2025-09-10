@@ -16,11 +16,9 @@ import java.time.LocalDateTime;
 @AllArgsConstructor
 public class CreateCourierResponse {
 
-    @NotBlank
     @JsonProperty("name")
     private String name;
 
-    @NotNull
     @JsonProperty("created_at")
     private LocalDateTime createdAt;
 }

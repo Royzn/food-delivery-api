@@ -24,6 +24,7 @@ public class CustomerService {
                 .name(request.getName())
                 .createdAt(LocalDateTime.now())
                 .build();
+        customerRepository.save(customer);
         return CreateCustomerResponse.builder()
                 .id(customer.getCustomerId())
                 .name(customer.getName())

@@ -25,6 +25,7 @@ public class CourierService {
                 .build();
         courierRepository.save(courier);
         return CreateCourierResponse.builder()
+                .id(courier.getCourierId())
                 .name(courier.getName())
                 .createdAt(courier.getCreatedAt())
                 .build();
@@ -34,7 +35,7 @@ public class CourierService {
         // Find Courier
         CourierEntity courier = courierRepository.findById(id)
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Courier not found"));
-        // Map courier name
+        // Map response
         GetCourierOrderDetailResponse response = new GetCourierOrderDetailResponse();
         response.setCourierName(courier.getName());
         // Map orders
@@ -55,6 +56,7 @@ public class CourierService {
             return orderResponse;
         }).collect(Collectors.toList());
         response.setOrderList(orderResponses);
+        // Return DTO
         return response;
     }
 }

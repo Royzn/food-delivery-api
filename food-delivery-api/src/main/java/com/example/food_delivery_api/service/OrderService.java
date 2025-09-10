@@ -1,13 +1,14 @@
 package com.example.food_delivery_api.service;
 
-import com.example.food_delivery_api.dto.order.CreateOrderItemRequest;
-import com.example.food_delivery_api.dto.order.CreateOrderRequest;
-import com.example.food_delivery_api.dto.order.CreateOrderResponse;
+import com.example.food_delivery_api.dto.customer.GetCustomerOrderDetailResponse;
+import com.example.food_delivery_api.dto.order.*;
 import com.example.food_delivery_api.entity.*;
 import com.example.food_delivery_api.repository.*;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
+import org.springframework.web.server.ResponseStatusException;
 
 import java.time.LocalDateTime;
 import java.util.List;
@@ -91,5 +92,26 @@ public class OrderService {
                         .createdAt(savedOrder.getCreatedAt())
                         .build()
         );
+    }
+
+    public GetOrderDetailResponse getOrderDetail(Long id) {
+        // Find order
+        OrderEntity order = orderRepository.findById(id)
+                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Order ID not found"));
+        // Map order item
+        List<GetOrderItemResponse> itemResponses = order.getOrderItemList().stream()
+                .map(item -> GetOrderItemResponse.builder()
+                        .quantity(item.getQuantity())
+                        .menuName(item.getMenu().getName())
+                        .menuPrice(item.getMenu().getPrice())
+                        .build())
+                .collect(Collectors.toList());
+        // Return DTO
+        return GetOrderDetailResponse.builder()
+                .customerName(order.getCustomer().getName())
+                .courierName(order.getCourier().getName())
+                .restaurantName(order.getRestaurant().getName())
+                .orderItemList(itemResponses)
+                .build();
     }
 }

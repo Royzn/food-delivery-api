@@ -36,7 +36,7 @@ public class CustomerService {
         // Find Customer
         CustomerEntity customer = customerRepository.findById(id)
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Customer not found"));
-        // Map customer name
+        // Map response
         GetCustomerOrderDetailResponse response = new GetCustomerOrderDetailResponse();
         response.setCustomerName(customer.getName());
         // Map orders
@@ -57,6 +57,7 @@ public class CustomerService {
             return orderResponse;
         }).collect(Collectors.toList());
         response.setOrderList(orderResponses);
+        // Return DTO
         return response;
     }
 }

@@ -43,11 +43,11 @@ public class CustomerService {
             GetCustomerOrderResponse orderResponse = new GetCustomerOrderResponse();
             orderResponse.setCourierName(order.getCourier().getName());
             orderResponse.setRestaurantName(order.getRestaurant().getName());
-            orderResponse.setOrderStatus(order.getStatus().toString());
+            orderResponse.setOrderStatus(order.getStatus());
             // Map order items
             List<GetCustomerOrderItemResponse> itemResponses = order.getOrderItemList().stream().map(item -> {
                 GetCustomerOrderItemResponse itemResponse = new GetCustomerOrderItemResponse();
-                itemResponse.setQuantity(item.getQuantity().longValue());
+                itemResponse.setQuantity(item.getQuantity());
                 itemResponse.setMenuName(item.getMenu().getName());
                 itemResponse.setMenuPrice(item.getMenu().getPrice());
                 return itemResponse;

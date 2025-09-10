@@ -2,6 +2,7 @@ package com.example.food_delivery_api.dto.menu;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.validation.constraints.DecimalMin;
+import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
@@ -14,7 +15,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @Builder
 public class CreateMenuRequest {
-    @NotEmpty
+    @NotBlank
     @JsonProperty("menu_name")
     private String menuName;
 

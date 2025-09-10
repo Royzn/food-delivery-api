@@ -1,6 +1,7 @@
 package com.example.food_delivery_api.dto.order;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
+import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
@@ -27,7 +28,7 @@ public class CreateOrderRequest {
     @JsonProperty("courier_id")
     private Long courierId;
 
-    @NotEmpty
+    @NotBlank
     @JsonProperty("order_item_list")
     private List<CreateOrderItemRequest> orderItemList;
 }

@@ -13,52 +13,7 @@ import java.time.LocalDateTime;
 import java.util.List;
 import java.util.stream.Collectors;
 
-@Service
-public class CustomerService {
-
-    @Autowired
-    private CustomerRepository customerRepository;
-
-    public CreateCustomerResponse createCustomer(CreateCustomerRequest request){
-        CustomerEntity customer = CustomerEntity.builder()
-                .name(request.getName())
-                .createdAt(LocalDateTime.now())
-                .updatedAt(LocalDateTime.now())
-                .build();
-        customerRepository.save(customer);
-        return CreateCustomerResponse.builder()
-                .id(customer.getCustomerId())
-                .name(customer.getName())
-                .createdAt(customer.getCreatedAt())
-                .build();
-    }
-
-    public GetCustomerOrderDetailResponse getCustomerOrderDetail(Long id){
-        // Find Customer
-        CustomerEntity customer = customerRepository.findById(id)
-                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Customer not found"));
-        // Map response
-        GetCustomerOrderDetailResponse response = new GetCustomerOrderDetailResponse();
-        response.setCustomerName(customer.getName());
-        // Map orders
-        List<GetCustomerOrderResponse> orderResponses = customer.getOrderList().stream().map(order -> {
-            GetCustomerOrderResponse orderResponse = new GetCustomerOrderResponse();
-            orderResponse.setCourierName(order.getCourier().getName());
-            orderResponse.setRestaurantName(order.getRestaurant().getName());
-            orderResponse.setOrderStatus(order.getStatus());
-            // Map order items
-            List<GetCustomerOrderItemResponse> itemResponses = order.getOrderItemList().stream().map(item -> {
-                GetCustomerOrderItemResponse itemResponse = new GetCustomerOrderItemResponse();
-                itemResponse.setQuantity(item.getQuantity());
-                itemResponse.setMenuName(item.getMenu().getName());
-                itemResponse.setMenuPrice(item.getMenu().getPrice());
-                return itemResponse;
-            }).collect(Collectors.toList());
-            orderResponse.setOrderItemList(itemResponses);
-            return orderResponse;
-        }).collect(Collectors.toList());
-        response.setOrderList(orderResponses);
-        // Return DTO
-        return response;
-    }
+public interface CustomerService {
+    public CreateCustomerResponse createCustomer(CreateCustomerRequest request);
+    public GetCustomerOrderDetailResponse getCustomerOrderDetail(Long id);
 }

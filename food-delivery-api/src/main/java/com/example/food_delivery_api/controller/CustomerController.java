@@ -5,6 +5,7 @@ import com.example.food_delivery_api.dto.customer.CreateCustomerResponse;
 import com.example.food_delivery_api.dto.customer.GetCustomerOrderDetailResponse;
 import com.example.food_delivery_api.service.CustomerService;
 import jakarta.validation.Valid;
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -14,10 +15,10 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/api/customers")
+@RequiredArgsConstructor
 public class CustomerController {
 
-    @Autowired
-    private CustomerService customerService;
+    private final CustomerService customerService;
 
     @PostMapping
     public ResponseEntity<CreateCustomerResponse> createUser(@Valid @RequestBody CreateCustomerRequest request){

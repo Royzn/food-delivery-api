@@ -40,6 +40,11 @@ management:
       probes:
         enabled: true
 
+app:
+  jwt:
+    secret: "ZmFrZV9yYW5kb21fc2VjcmV0X2NoYW5nZV9tZV9sYXRlcg=="
+    expiration-ms: 600000
+
 ---
 spring:
   config:

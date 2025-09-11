@@ -8,6 +8,8 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Optional;
+
 @RestController
 @RequestMapping("/api/orders")
 public class OrderController {
@@ -16,12 +18,16 @@ public class OrderController {
 
     @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<CreateOrderResponse> createOrder(@Valid @RequestBody CreateOrderRequest req){
-        return orderService.createOrder(req);
+        CreateOrderResponse res = orderService.createOrder(req);
+        if(res == null) return ResponseEntity.notFound().build();
+        return ResponseEntity.ok(res);
     }
 
     @GetMapping("/{id}")
     public ResponseEntity<GetOrderDetailResponse> getOrderDetail(@PathVariable Long id){
-        return ResponseEntity.ok(orderService.getOrderDetail(id));
+        GetOrderDetailResponse res = orderService.getOrderDetail(id);
+        if(res == null) return ResponseEntity.notFound().build();
+        return ResponseEntity.ok(res);
     }
 
     @PutMapping("/{id}/status")

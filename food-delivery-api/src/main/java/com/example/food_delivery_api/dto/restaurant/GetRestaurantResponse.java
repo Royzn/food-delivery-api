@@ -15,4 +15,7 @@ import java.util.List;
 public class GetRestaurantResponse {
     @JsonProperty("restaurant_name")
     private String restaurantName;
+
+    @JsonProperty("status")
+    private String status;
 }
